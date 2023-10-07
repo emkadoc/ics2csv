@@ -2,14 +2,14 @@
 setlocal EnableDelayedExpansion
 mode 70,30
 color 9f
-title ics2csvX V.0.1 - (c) 2023 Marco Kittel
+title ics2csv V.0.1 - 2023 ~ emkadoc.de
 
 rem params should by modified by the user
 set "cal_url=https://<domain>/calendar/ical/<file>.ics"
 set "cal_file=<local_tmp_file_as_string>"
 set "csv_file=<csv_file_name_as_string>"
-set "date_from=20221031"
-set "date_to=20221201"
+set "date_from=<date_as_int_format_YYYYMMDD>"
+set "date_to=<date_as_int_format_YYYYMMDD>"
 
 rem fixed params - do not modify
 set "substring_SUMMARY=SUMMARY:"
@@ -21,9 +21,9 @@ set "substring_VEVENT_END=END:VEVENT"
 set "exported=true"
 
 echo -------------------------
-echo     ics2csvX ~ V.0.9
+echo      ics2csv V.0.1
 echo -------------------------
-echo  (c) 2022 ~ Marco Kittel 
+echo    2023 ~ emkadoc.de 
 echo -------------------------
 call :downloadfile %cal_url% %cal_file%
 
