@@ -1,4 +1,4 @@
-# About "ics2csv4Win"
+# About "ics2csv4win"
 This is a batch-exporter for online ics calendars. It will download and transfer the selected appointments as character separated values (csv) without the need of installing extra packages, frameworks, libraries etc. - Just windows batch processing!
 
 # Background | Intention
@@ -7,7 +7,7 @@ It was intentionally created for users with windows machines - e.g. for employee
 # Configuration
 1. Download source-code zip from latest release
 2. Unpack
-3. Edit the file "ics2.csv.bat"
+3. Edit the file "ics2csv4win.bat"
 4. Change the following param value to your online ics resource:
 ```
 set "cal_url=https://<domain>/<path_to_ics_file>"
@@ -15,7 +15,7 @@ set "cal_url=https://<domain>/<path_to_ics_file>"
 5. Save file and close editor
 
 # Usage
-1. Run the exporter by double click onto file "ics2csv.bat"
+1. Run the exporter by double click onto file "ics2csv4win.bat"
 2. Type in the desired start date and confirm with the return key
 3. Type in the desired end date and confirm with the return key
 4. Download starts...
