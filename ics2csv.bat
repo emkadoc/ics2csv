@@ -4,14 +4,14 @@ mode 70,30
 color 9f
 title ics2csv V.0.1 - 2023 ~ emkadoc.de
 
-rem params should by modified by the user
-set "cal_url=https://<domain>/calendar/ical/<file>.ics"
-set "cal_file=<local_tmp_file_as_string>"
-set "csv_file=<csv_file_name_as_string>"
-set "date_from=<date_as_int_format_YYYYMMDD>"
-set "date_to=<date_as_int_format_YYYYMMDD>"
+rem this param should by modified by the user
+set "cal_url=https://<domain>/<path_to_ics_file>"
 
 rem fixed params - do not modify
+set "cal_file=cal.tmp"
+set "csv_file=cal.csv"
+set "date_from="
+set "date_to="
 set "substring_SUMMARY=SUMMARY:"
 set "substring_DTSTART=DTSTART:"
 set "substring_DTEND=DTEND:"
@@ -27,9 +27,9 @@ echo    2023 ~ emkadoc.de
 echo -------------------------
 call :downloadfile %cal_url% %cal_file%
 
-echo 1. Startdatum (Format: JJJJMMTT, z.B. 20221031):
+echo 1. Start (Format: YYYYMMDD [en] / JJJJMMTT [de]):
 set /p date_from=
-echo 2. Endedatum (Format: JJJJMMTT, z.B. 20221101):
+echo 2. End (Format: YYYYMMDD [en] / JJJJMMTT [de]):
 set /p date_to=
 echo 3. Downloading...
 
@@ -73,12 +73,10 @@ echo 3. Downloading...
 		) 
 	)
 
-
 	if "!found!" == "false" (
 		set "line_new=!line:\=!"
 		call :trim final_summery_line !line_new!
 	)
-
 
 	if not "!line:%substring_VEVENT_END%=!"=="!line!" (
 		set "event_end=true"
@@ -155,7 +153,6 @@ del %cal_file%
 echo 4. -Exit-
 exit /b
 
-
 :calcdate
 call :dgetl   y m d
 call :dpack p y m d
@@ -187,14 +184,12 @@ rem for /f "skip=1" %%a in ('wmic os get localdatetime') do set z=!z!%%a
 rem set /a y=%z:~0,4%, m=1%z:~4,2% %%100, d=1%z:~6,2% %%100
 endlocal& set /a %1=!i_year!, %2=!i_month!, %3=!i_day!& exit /b
 
-
 :dpack
 setlocal EnableDelayedExpansion&^
 set /a y=(%2)*512+(%3)*32+(%4), d=y%%32, m=y/32%%16, m3=m*3, y/=512&^
 set t=xxx  0 31 59 90120151181212243273304334
 set /a r=y-(12-m)/10, r=365*(y-1)+d+!t:~%m3%,3!+r/4-(r/100-r/400)-1
 endlocal& set %1=%r%& exit /b
-
 
 :dunpk
 setlocal& set /a y=(%4)+366, y+=y/146097*3+(y%%146097-60)/36524,^
