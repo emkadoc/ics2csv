@@ -2,7 +2,7 @@
 setlocal EnableDelayedExpansion
 mode 70,30
 color 9f
-title ics2csv V.0.1 - 2023 ~ emkadoc.de
+title ics2csv4win V.0.2 ~ 2023 ~ emkadoc.de
 
 rem this param should by modified by the user
 set "cal_url=https://<domain>/<path_to_ics_file>"
@@ -21,7 +21,7 @@ set "substring_VEVENT_END=END:VEVENT"
 set "exported=true"
 
 echo -------------------------
-echo      ics2csv V.0.1
+echo      ics2csv4win V.0.2
 echo -------------------------
 echo    2023 ~ emkadoc.de 
 echo -------------------------
