@@ -19,6 +19,7 @@ set "substring_DTSTART_ALT=DTSTART;VALUE=DATE:"
 set "substring_DTEND_ALT=DTEND;VALUE=DATE:"
 set "substring_VEVENT_END=END:VEVENT"
 set "exported=true"
+set "dst_deviation=1"
 
 echo -------------------------
 echo    ics2csv4win V.0.2
@@ -103,11 +104,12 @@ echo 3. Downloading...
 							if "!i_day:~0,1!"=="0" SET i_day=!i_day:~1!
 
 							call :calcdate final_date
+							call :calc_daylight_saving !i_year! !i_month! !i_day!
 										
 							if not "!final_dtstart:~9,2!" == "" (
 								set final_dstart_hour=!final_dtstart:~9,2!
 								if "!final_dstart_hour:~0,1!"=="0" SET final_dstart_hour=!final_dstart_hour:~1!
-								set /a final_dstart_hour_de_tz=!final_dstart_hour! + 2
+								set /a final_dstart_hour_de_tz=!final_dstart_hour! + !dst_deviation!
 								if 10 gtr !final_dstart_hour_de_tz! SET "final_dstart_hour_de_tz=0!final_dstart_hour_de_tz!"
 								set "final_start_datetime=!final_date!!final_dstart_hour_de_tz!:!final_dtstart:~11,2!"
 							) else (
@@ -122,11 +124,12 @@ echo 3. Downloading...
 							if "!i_day:~0,1!"=="0" SET i_day=!i_day:~1!
 
 							call :calcdate final_date
+							call :calc_daylight_saving !i_year! !i_month! !i_day!
 
 							if not "!final_dtend:~9,2!" == "" (
 								set final_dtend_hour=!final_dtend:~9,2!
 								if "!final_dtend_hour:~0,1!"=="0" set final_dtend_hour=!final_dtend_hour:~1!
-								set /a final_dtend_hour_de_tz=!final_dtend_hour! + 1
+								set /a final_dtend_hour_de_tz=!final_dtend_hour! + !dst_deviation!
 								if 10 gtr !final_dtend_hour_de_tz! set "final_dtend_hour_de_tz=0!final_dtend_hour_de_tz!"
 								set "final_end_datetime=!final_date!!final_dtend_hour_de_tz!:!final_dtend:~11,2!"
 							) else (
@@ -208,3 +211,12 @@ exit /b
 SetLocal EnableDelayedExpansion
 %SystemRoot%\system32\curl.exe -k -s %1 -o %2
 endlocal& set %1=%cal_url%, %2=%cal_file%& exit /b
+
+:calc_daylight_saving
+For /F "delims=" %%G In ('PowerShell -Command "&{(Get-Date -Year %1 -Month %2 -Day %3).IsDaylightSavingTime()}"') Do Set "var=%%G"
+if "%var%" == "True" (
+	set "dst_deviation=2"
+) else (
+	set "dst_deviation=1"
+)
+exit /b 0
