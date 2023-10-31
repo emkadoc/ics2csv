@@ -2,7 +2,7 @@
 setlocal EnableDelayedExpansion
 mode 70,30
 color 9f
-title ics2csv V.0.1 - 2023 ~ emkadoc.de
+title ics2csv4win V.0.2 ~ 2023 ~ emkadoc.de
 
 rem this param should by modified by the user
 set "cal_url=https://<domain>/<path_to_ics_file>"
@@ -21,9 +21,9 @@ set "substring_VEVENT_END=END:VEVENT"
 set "exported=true"
 
 echo -------------------------
-echo      ics2csv V.0.1
+echo    ics2csv4win V.0.2
 echo -------------------------
-echo    2023 ~ emkadoc.de 
+echo    2023 ~ emkadoc.de
 echo -------------------------
 call :downloadfile %cal_url% %cal_file%
 
@@ -126,7 +126,7 @@ echo 3. Downloading...
 							if not "!final_dtend:~9,2!" == "" (
 								set final_dtend_hour=!final_dtend:~9,2!
 								if "!final_dtend_hour:~0,1!"=="0" set final_dtend_hour=!final_dtend_hour:~1!
-								set /a final_dtend_hour_de_tz=!final_dtend_hour! + 2
+								set /a final_dtend_hour_de_tz=!final_dtend_hour! + 1
 								if 10 gtr !final_dtend_hour_de_tz! set "final_dtend_hour_de_tz=0!final_dtend_hour_de_tz!"
 								set "final_end_datetime=!final_date!!final_dtend_hour_de_tz!:!final_dtend:~11,2!"
 							) else (
