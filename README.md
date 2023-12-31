@@ -7,12 +7,8 @@ It was intentionally created for users with windows machines - e.g. for employee
 # Configuration
 1. Download source-code zip from latest release
 2. Unpack
-3. Edit the file "ics2csv4win.bat"
-4. Change the following param value to your online ics resource:
-```
-set "cal_url=https://<domain>/<path_to_ics_file>"
-```
-5. Save file and close editor
+3. Change the remote calendar url inside config.json
+4. Save file and close editor
 
 # Usage
 1. Run the exporter by double click onto file "ics2csv4win.bat"
