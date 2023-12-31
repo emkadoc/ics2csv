@@ -1,11 +1,14 @@
 @echo off
 setlocal EnableDelayedExpansion
-mode 70,30
 color 9f
-title ics2csv4win V.0.2 ~ 2023 ~ emkadoc.de
+title ics2csv4win V.0.3 - 2023
 
-rem this param should by modified by the user
-set "cal_url=https://<domain>/<path_to_ics_file>"
+:: Read file "config.json"
+set string=%string:"=%
+for /f "tokens=3,5" %%a in (config.json) do set d=%%a&set t=%%b
+rem Remove quotes
+set d=%d:"=%
+set cal_url=%d%
 
 rem fixed params - do not modify
 set "cal_file=cal.tmp"
@@ -21,11 +24,7 @@ set "substring_VEVENT_END=END:VEVENT"
 set "exported=true"
 set "dst_deviation=1"
 
-echo -------------------------
-echo    ics2csv4win V.0.2
-echo -------------------------
-echo    2023 ~ emkadoc.de
-echo -------------------------
+echo Remote calendar: %cal_url%
 call :downloadfile %cal_url% %cal_file%
 
 echo 1. Start (Format: YYYYMMDD [en] / JJJJMMTT [de]):
