@@ -21,6 +21,7 @@ It was intentionally created for users with windows machines - e.g. for employee
 
 # Miscellaneous 
 * It would be very nice if someone is motivated to port this code to bash, node.js or whatever else - please get in touch!
-* This is tested under Windows 11 - But it should be also working with Windows 10 since curl[^1] (needed for downloading) is delevered by default.curl
+* This is tested under Windows 11 - But it should be also working with Windows 10 since curl[^1] (needed for downloading the remote calendar) and PowerShell[^2] (needed for daylight saving calculation) is delivered since Windows 10 by default
 
 [^1]: https://curl.se/
+[^2]: https://learn.microsoft.com/de-de/powershell/
